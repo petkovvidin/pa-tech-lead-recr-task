@@ -8,6 +8,18 @@ from app_files.agent import mini_agent
 
 st.title("📊 Filter and Rank Happiness Scores")
 
+with st.expander("🛈 What do these variables mean?"):
+    st.markdown("""
+- **GDP**: Economic output per person.
+- **Social support**: Having someone to count on.
+- **Health**: Life expectancy at birth.
+- **Freedom**: Perceived freedom to make life choices.
+- **Trust**: Perception of corruption in government/business.
+- **Generosity**: Willingness to donate to others.
+- **Dystopia Residual**: Baseline happiness from a hypothetical worst-case society.
+""")
+
+
 df = load_and_clean_data("data")
 filtered_df, selected_year = filter_data(df)
 

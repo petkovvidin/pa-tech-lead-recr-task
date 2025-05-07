@@ -15,7 +15,7 @@ This interactive Streamlit app allows users to explore and compare global happin
 - **Correlation Heatmap** — Understand relationships between happiness score and its key drivers
 - **Statistical Insight** — See the most influential factor per year
 - **Multi-Page Layout** — Organized for clarity and scalability
-
+- **Mini agent** — can answer simple questions :)
 ---
 
 ## Tech Stack
@@ -37,7 +37,7 @@ This interactive Streamlit app allows users to explore and compare global happin
 │ ├── 1_Filter_and_Rank.py
 │ ├── 2_Correlations.py
 │ └── 3_Time_Trends.py
-├── data/ 
+├── data/ #input data
 ├── app_files
 │ ├── data_loader.py # Cleans and unifies all data
 │ ├── filters.py # Handles sidebar filters
