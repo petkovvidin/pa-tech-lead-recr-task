@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from data_loader import load_and_clean_data
+from app_files.data_loader import load_and_clean_data
 
 st.title("📈 Time Trends of Happiness Score")
 

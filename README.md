@@ -38,9 +38,11 @@ This interactive Streamlit app allows users to explore and compare global happin
 │ ├── 2_Correlations.py
 │ └── 3_Time_Trends.py
 ├── data/ 
-├── data_loader.py # Cleans and unifies all data
-├── filters.py # Handles sidebar filters
-├── visuals.py # Contains visual components
+├── app_files
+│ ├── data_loader.py # Cleans and unifies all data
+│ ├── filters.py # Handles sidebar filters
+│ ├── visuals.py # Contains visual components
+│ └── agent.py
 ├── requirements.txt
 ├── Dockerfile 
 └── README.md

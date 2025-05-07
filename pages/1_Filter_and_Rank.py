@@ -1,8 +1,9 @@
 import streamlit as st
-from data_loader import load_and_clean_data
-from filters import filter_data
-from visuals import show_rankings
+from app_files.data_loader import load_and_clean_data
+from app_files.filters import filter_data
+from app_files.visuals import show_rankings
 import pandas as pd
+from app_files.agent import mini_agent
 
 
 st.title("📊 Filter and Rank Happiness Scores")
@@ -27,3 +28,11 @@ if not insight_df.empty:
     st.markdown(f"🧠 **Insight:** In {selected_year}, the factor most correlated with Happiness Score was **{top_factor}** with a correlation of **{top_corr:.2f}**.")
 else:
     st.info("Not enough numeric data available to compute insights.")
+
+
+st.sidebar.subheader("🧠 Ask the Dashboard")
+user_q = st.sidebar.text_input("Type a question about this year's data")
+
+if user_q:
+    response = mini_agent(user_q, filtered_df, selected_year)
+    st.sidebar.markdown(response)
