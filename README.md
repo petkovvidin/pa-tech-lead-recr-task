@@ -53,7 +53,7 @@ This interactive Streamlit app allows users to explore and compare global happin
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/petkovvidin/pa-tech-lead-recr-task.git
 cd your-repo
 ```
 
