@@ -1,35 +1,68 @@
 # World Happiness Dashboard
 
-This Streamlit app allows users to explore and compare happiness metrics across countries and years, using data from the World Happiness Report.
+This interactive Streamlit app allows users to explore and compare global happiness metrics across countries and years using the World Happiness Report dataset.
 
-##  Features
+ **Live App**: [https://pa-tech-lead-recr-task-7i3yivpryeeehcnpy5uv3o.streamlit.app/](https://pa-tech-lead-recr-task-7i3yivpryeeehcnpy5uv3o.streamlit.app/)
 
--> Filter by year, region, and country  
--> View happiness rankings (top N / bottom N)  
--> See correlations between happiness score and components  
--> Compare happiness trends over time for selected countries  
--> Multi-page layout for clean navigation  
+---
 
-##  Tech Stack
+## Features
 
-- Python 3.9+
+- **Year Selection** — Explore happiness data from 2015 to 2019
+- **Filter by Region or Country** — Narrow down results dynamically
+- **Top & Bottom Rankings** — Display top N and bottom N happiest countries
+- **Time Trend Visualization** — Track happiness score trends across time
+- **Correlation Heatmap** — Understand relationships between happiness score and its key drivers
+- **Statistical Insight** — See the most influential factor per year
+- **Multi-Page Layout** — Organized for clarity and scalability
+
+---
+
+## Tech Stack
+
+- Python 3.9
 - Streamlit
 - Pandas
-- Plotly
 - Seaborn
+- Plotly
+- Docker (optional)
+- Hosted on Streamlit Cloud
+
+---
 
 ## Project Structure
-pa-tech-lead-recr-task/
-    ├── Home.py # Main landing page
-    ├── pages/
-    │ ├── 1_Filter_and_Rank.py
-    │ ├── 2_Correlations.py
-    │ └── 3_Time_Trends.py
-    ├── data/ 
-    ├── data_loader.py
-    ├── filters.py
-    ├── visuals.py
-    ├── requirements.txt
-    └── README.md
+ ```
+├── Home.py # Landing page
+├── pages/
+│ ├── 1_Filter_and_Rank.py
+│ ├── 2_Correlations.py
+│ └── 3_Time_Trends.py
+├── data/ 
+├── data_loader.py # Cleans and unifies all data
+├── filters.py # Handles sidebar filters
+├── visuals.py # Contains visual components
+├── requirements.txt
+├── Dockerfile 
+└── README.md
+```
 
 
+---
+
+##  How to Run Locally
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+
+### 2. (Optional) Create virtual environment
+```cmd
+python -m venv .venv
+source .venv/Scripts/activate
+
+pip install -r requirements.txt
+
+streamlit run Home.py
+```
