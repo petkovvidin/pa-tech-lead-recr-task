@@ -4,34 +4,79 @@ import os
 def load_and_clean_data(data_folder="data"):
     all_data = []
 
-    column_mapping = {
-        'Country': 'Country', 'Country name': 'Country',
-        'Happiness.Score': 'Score', 'Happiness Score': 'Score', 'Happiness score': 'Score', 'Score': 'Score',
-        'Happiness Rank': 'Rank', 'Happiness.Rank': 'Rank', 'Overall rank': 'Rank',
-        'Region': 'Region',
-        'Economy (GDP per Capita)': 'GDP', 'Logged GDP per capita': 'GDP',
-        'Health (Life Expectancy)': 'Health', 'Healthy life expectancy': 'Health',
-        'Freedom': 'Freedom', 'Freedom to make life choices': 'Freedom',
-        'Trust (Government Corruption)': 'Trust', 'Perceptions of corruption': 'Trust',
-        'Generosity': 'Generosity',
-        'Family': 'Social support', 'Social support': 'Social support',
-        'Dystopia Residual': 'Dystopia Residual'
-    }
-
-    expected_cols = ['Country', 'Region', 'Score', 'Rank', 'GDP', 'Health', 'Freedom', 'Trust', 'Generosity', 'Social support', 'Dystopia Residual']
-
     for filename in os.listdir(data_folder):
         if filename.endswith(".csv"):
             year = int(filename.split(".")[0])
-            df = pd.read_csv(os.path.join(data_folder, filename))
+            file_path = os.path.join(data_folder, filename)
+            df = pd.read_csv(file_path)
+
+            # Standardize column names (strip & lower)
             df.columns = [col.strip() for col in df.columns]
-            df = df.rename(columns=column_mapping)
+
+            # YEAR-SPECIFIC MAPPINGS
+            if year == 2015 or year == 2016:
+                df = df.rename(columns={
+                    "Country": "Country",
+                    "Region": "Region",
+                    "Happiness Score": "Score",
+                    "Happiness Rank": "Rank",
+                    "Economy (GDP per Capita)": "GDP",
+                    "Family": "Social support",
+                    "Health (Life Expectancy)": "Health",
+                    "Freedom": "Freedom",
+                    "Trust (Government Corruption)": "Trust",
+                    "Generosity": "Generosity",
+                    "Dystopia Residual": "Dystopia Residual"
+                })
+
+            elif year == 2017:
+                df = df.rename(columns={
+                    "Country": "Country",
+                    "Happiness.Score": "Score",
+                    "Happiness.Rank": "Rank",
+                    "Economy..GDP.per.Capita.": "GDP",
+                    "Family": "Social support",
+                    "Health..Life.Expectancy.": "Health",
+                    "Freedom": "Freedom",
+                    "Trust..Government.Corruption.": "Trust",
+                    "Generosity": "Generosity",
+                    "Dystopia.Residual": "Dystopia Residual"
+                })
+                df["Region"] = pd.NA  # Not available in 2017
+
+            elif year == 2018 or year == 2019:
+                df = df.rename(columns={
+                    "Country or region": "Country",
+                    "Score": "Score",
+                    "Overall rank": "Rank",
+                    "GDP per capita": "GDP",
+                    "Social support": "Social support",
+                    "Healthy life expectancy": "Health",
+                    "Freedom to make life choices": "Freedom",
+                    "Perceptions of corruption": "Trust",
+                    "Generosity": "Generosity"
+                })
+                df["Region"] = pd.NA  # Not available
+
+            else:
+                continue  # Skip unknown years
+
+            # Add Year column
+            df["Year"] = year
+
+            # Ensure all expected columns exist
+            expected_cols = [
+                "Country", "Region", "Rank", "Score", "GDP", "Social support",
+                "Health", "Freedom", "Trust", "Generosity", "Dystopia Residual", "Year"
+            ]
             for col in expected_cols:
                 if col not in df.columns:
                     df[col] = pd.NA
-            df['Year'] = year
-            all_data.append(df[expected_cols + ['Year']])
-    
-    combined_df = pd.concat(all_data, ignore_index=True)
-    combined_df = combined_df.dropna(subset=['Country', 'Score'])
-    return combined_df
+
+            df = df[expected_cols]
+            all_data.append(df)
+
+    # Combine all years
+    full_df = pd.concat(all_data, ignore_index=True)
+    full_df = full_df.dropna(subset=["Country", "Score", "Year"])
+    return full_df
